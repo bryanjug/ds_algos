@@ -170,3 +170,22 @@ let instructor = {
 // sort -   O(N * log N)
 // forEach/map/filter/reduce/etc. -   O(N)
 
+function order(words){
+    var array = words.split(' ');
+    var sortedArray = [];
+    
+    //loop through each array item
+    for(i = 0; i <= array.length; i++) { //"Thi1s is2 3a T4est"
+      //loop through each array item
+      for(j = 0; j < array.length; j++) { //"Thi1s is2 3a T4est"
+        //if this looped array item's index of the first loop >= 0
+  
+        if(array[j].indexOf(i) >= 0) { 
+          //add to new array with the looped array item
+          sortedArray.push(array[j]);
+        }
+      }
+    }
+    //turn array into string
+    return sortedArray.join(' ');
+}
