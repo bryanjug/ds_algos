@@ -170,6 +170,41 @@ let instructor = {
 // sort -   O(N * log N)
 // forEach/map/filter/reduce/etc. -   O(N)
 
+//number even or odd?
+function even_or_odd(number) {
+    if (number % 2 === 0) {
+      return "Even";
+    }
+    if (number % 1 === 0) {
+      return "Odd";
+    }
+}
+
+//add all positive numbers
+function positiveSum(arr) {
+    var sum = 0;
+    
+    for (i = 0; i <= arr.length; i++) {
+      if (arr[i] >= 0) {
+        sum = sum + arr[i]; 
+      }
+    }
+    return sum;
+}
+
+//order words by the number inside of them
+function order(words){
+    var re = /\D/g;
+    
+    var array = words.split(' ');
+    array.sort(function(a, b) {
+          return (parseInt(a.replace(re, ""), 10) - parseInt(b.replace(re, ""), 10));
+    });
+    
+    return array.join(' ');
+}
+
+//order words by the number inside of them
 function order(words){
     var array = words.split(' ');
     var sortedArray = [];
@@ -188,4 +223,81 @@ function order(words){
     }
     //turn array into string
     return sortedArray.join(' ');
+}
+
+//shows number of likes on a post
+function likes(names) {
+    let message = "";
+    
+    if (names.length === 0) {
+      message = "no one likes this";
+    }
+    if (names.length === 1) {
+      message = names[0] + " likes this";
+    }
+    if (names.length === 2) {
+      message = names[0] + " and " + names[1] + " like this";
+    }
+    if (names.length === 3) {
+      message = names[0] + ", " + names[1] + " and " + names[2] + " like this";
+    }
+    if (names.length >= 4) {
+      message = names[0] + ", " + names[1] + " and " + (names.length - 2) + " others like this";
+    }
+    
+    return message;
+}
+
+//uppercase first letter of each word
+String.prototype.toJadenCase = function () {
+    let notCased = this.valueOf();
+    let array = notCased.split(' ');
+    let newArray = [];
+    
+    for (i = 0; i <= array.length; i++) {
+      let newString = array[i].replace(array[i].charAt(0), array[i].charAt(0).toUpperCase());
+  
+      newArray.push(newString);
+      console.log(newArray)
+    }
+    let cased = newArray.join(' ')
+    return cased;
+};
+
+//get count of vowels
+function getCount(str) {
+    var vowelsCount = 0;
+    
+    for (i = 0; i <= str.length; i++) {
+      if (str.charAt(i) === "a" || str.charAt(i) === "e" ||
+         str.charAt(i) === "i" || str.charAt(i) === "o" ||
+         str.charAt(i) === "u") {
+        vowelsCount = vowelsCount + 1;
+    }
+}
+
+return vowelsCount;
+
+//accum("RqaEzty") -> "R-Qq-Aaa-Eeee-Zzzzz-Tttttt-Yyyyyyy"
+function accum(s) {
+    let newString = "";
+    let repeatedLetter = "";
+    
+    for (i = 0; i <= s.length; i++) {
+      if (i === 0) {
+        newString = s.charAt(i) + "-";
+      } else {
+        for (j = 0; j < i; j++) {
+          repeatedLetter += s.charAt(i).toLowerCase();
+        }
+        if (i < s.length - 1 && i !== 0) {
+          newString += s.charAt(i).toUpperCase() + repeatedLetter + "-";
+        }
+        if (i === s.length - 1) {
+          newString += s.charAt(i).toUpperCase() + repeatedLetter;
+        }
+        repeatedLetter = "";
+      }
+    }
+    return newString;
 }
