@@ -279,6 +279,7 @@ function getCount(str) {
 return vowelsCount;
 
 //accum("RqaEzty") -> "R-Qq-Aaa-Eeee-Zzzzz-Tttttt-Yyyyyyy"
+//shouldve used repeat() for faster speed
 function accum(s) {
     let newString = "";
     let repeatedLetter = "";
@@ -300,4 +301,24 @@ function accum(s) {
       }
     }
     return newString;
+}
+
+//find multiples of 5 and 3
+function solution(number){
+    var sum = 0;
+    
+    for(var i = 1;i< number; i++){
+      if(i % 3 == 0 || i % 5 == 0){
+        sum += i
+      }
+    }
+    return sum;
+}
+
+//(1, -2) = -2 + -1 + 0 + 1 = -2
+function GetSum( a,b )
+{
+   if (a == b) return a;
+   else if (a < b) return a + GetSum(a+1, b);
+   else return a + GetSum(a-1,b);
 }
