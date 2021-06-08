@@ -322,3 +322,39 @@ function GetSum( a,b )
    else if (a < b) return a + GetSum(a+1, b);
    else return a + GetSum(a-1,b);
 }
+
+//same as above but with arithmetic progression sum
+const GetSum = (a, b) => {
+    let min = Math.min(a, b),
+        max = Math.max(a, b);
+    return (max - min + 1) * (min + max) / 2;
+}
+
+//replace all upercase and lowercase vowels from string
+function disemvowel(str) {
+    str = str.replace(/([aeiouAEIOU])/g, "");  
+    return str;
+}
+
+//return highest and lowest numbers in an array of strings
+function highAndLow(numbers){
+    let array = numbers.split(" ");
+    let arrayNumbers = [];
+    let low = 0;
+    let high = 0;
+    let highAndLow = "";
+        
+    for (i = 0; i < array.length; i++) {
+      arrayNumbers.push(parseInt(array[i]));
+    }
+    
+    high = Math.max(...arrayNumbers);
+    low = Math.min(...arrayNumbers);
+    highAndLow = `${high} ${low}`;
+    return highAndLow;
+}
+
+function highAndLow(numbers){
+    numbers = numbers.split(' ').map(Number);
+    return Math.max.apply(0, numbers) + ' ' + Math.min.apply(0, numbers);
+}
