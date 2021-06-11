@@ -389,6 +389,7 @@ function squareDigits(num){
   return parseInt(newNum);
 }
 
+//turn array of numbers into phone number string
 function createPhoneNumber(numbers){
   let phoneNumber = "";
   
@@ -406,4 +407,71 @@ function createPhoneNumber(numbers){
   }
   
   return phoneNumber;
+}
+
+//same as above but without loop
+function createPhoneNumber(numbers){
+  numbers = numbers.join('');
+  return '(' + numbers.substring(0, 3) + ') ' 
+      + numbers.substring(3, 6) 
+      + '-' 
+      + numbers.substring(6);
+}
+
+//recursive function -> 493193  -->  4 + 9 + 3 + 1 + 9 + 3 = 29  -->  2 + 9 = 11  -->  1 + 1 = 2
+function digital_root(n){
+  n = eval(n.toString().split('').join('+'));
+
+  if (n > 9) {
+    return digital_root(n);
+  }
+
+  return n;
+}
+
+//add a space infront of any capital letter
+function solution(string) {
+  //" $1" gets the first instance of the regex match and places a space infront of the character
+  return(string.replace(/([A-Z])/g, ' $1'));
+}
+
+//same as above but using map
+function solution(string) {
+  string = string.split('').map(function (el) {
+    if (el === el.toUpperCase()) {
+      el = ' ' + el
+    }
+    return el
+  })
+  return string.join('')
+}
+
+//check if a number can be squared
+var isSquare = function(n){
+  if((Math.sqrt(n) % 1) == 0)
+    return true;
+  else
+    return false;
+}
+
+//make a fibonacci series with a number -> 0,1,1,2,3,5,8,13...
+//by adding the last 2 digits and placing the sum into the array
+//then return the last 2 digits in the array when the multiplication
+//of the 2 digits are higher or bigger than the number passed in
+function productFib(prod){
+  let array = [0, 1];
+  
+  for (i = 1; i <= prod; i++) {
+    let num = array[i - 1] + array[i];
+    
+    if (array[i - 2] * array[i - 1] > prod) {
+      return [array[i - 2], array[i - 1], false];
+
+    } else if (array[i - 2] * array[i - 1] === prod) {
+      return [array[i - 2], array[i - 1], true];
+      
+    } else {
+      array.push(num);
+    }
+  }
 }
