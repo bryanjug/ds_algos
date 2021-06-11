@@ -358,3 +358,52 @@ function highAndLow(numbers){
     numbers = numbers.split(' ').map(Number);
     return Math.max.apply(0, numbers) + ' ' + Math.min.apply(0, numbers);
 }
+
+//find number in array that has an odd count
+function findOdd(arr) {
+  var result, num = 0;
+
+  arr = arr.sort();
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i] === arr[i+1]) {
+      num++;
+    } else {
+      num++;
+      if (num % 2 != 0) {
+        result = arr[i];
+        break;
+      }
+    }
+  }
+  return result;
+}
+
+function squareDigits(num){
+  let newNum = "";
+  let array = ("" + num).split("");
+  
+  for (i = 0; i < array.length; i++) {
+    newNum = newNum + "" + array[i] * array[i];
+  }
+  
+  return parseInt(newNum);
+}
+
+function createPhoneNumber(numbers){
+  let phoneNumber = "";
+  
+  for (i = 0; i < numbers.length; i++) {
+    phoneNumber = phoneNumber + numbers[i];
+    if (i === 0) {
+      phoneNumber = "(" + phoneNumber;
+    }
+    if (i === 2) {
+      phoneNumber = phoneNumber + ") ";
+    }
+    if (i === 5) {
+      phoneNumber += "-";
+    }
+  }
+  
+  return phoneNumber;
+}
