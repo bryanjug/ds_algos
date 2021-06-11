@@ -469,9 +469,86 @@ function productFib(prod){
 
     } else if (array[i - 2] * array[i - 1] === prod) {
       return [array[i - 2], array[i - 1], true];
-      
+
     } else {
       array.push(num);
     }
   }
+}
+
+//check count of h * bounce reaching window height
+function bouncingBall(h,  bounce,  window) {
+  let viewCount = -1;
+  
+  for (i = 0; i <= Infinity; i++) {
+    if (h > 0 && bounce > 0 && bounce < 1 && window < h) {
+      if (h > window) {
+        h = h * bounce;
+        viewCount = viewCount + 2;
+      }
+
+      if (h <= window) {
+        return viewCount;
+      }
+    } else {
+      return -1;
+    }
+  }
+}
+
+//flip each word in a string that have 5 or more letters
+function spinWords(string){
+  let array = string.split(" ");
+  let newString = "";
+  let newArray = [];
+  let word = "";
+  
+  if (array.length === 1 && array[0].length >= 5) {
+    for (i = 0; i <= array[0].length; i++) {
+      newString = newString + array[0].charAt(array[0].length - (i + 1))
+    }
+    return newString;
+  }
+  if (array.length > 1) {
+    for (i = 0; i < array.length; i++) { //loop through array
+      for (j = 0; j <= array[i].length; j++) { //loop through each character in array
+        if (array[i].length >= 5) {
+          word = word + array[i].charAt(array[i].length - j);
+          
+          if (word.length === array[i].length) {
+            newArray.push(word);
+            word = "";
+          }
+        }
+        if (array[i].length < 5) {
+          newArray.push(array[i]);
+          break;
+        }
+      }
+    }
+  }
+  return newArray.join(' ');
+}
+
+//same as above but with map
+function spinWords(words){
+  return words.split(' ').map(function (word) {
+    return (word.length > 4) ? word.split('').reverse().join('') : word;
+  }).join(' ');
+}
+
+//count the numbers that have been multiplied
+//persistence(999) === 4 // because 9*9*9 = 729, 7*2*9 = 126,
+                        // 1*2*6 = 12, and finally 1*2 = 2 
+function persistence(num) {
+  var times = 0;
+  
+  num = num.toString();
+  
+  while (num.length > 1) {
+    times++;
+    num = num.split('').map(Number).reduce((a, b) => a * b).toString();
+  }
+  
+  return times;
 }
