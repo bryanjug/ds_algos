@@ -552,3 +552,27 @@ function persistence(num) {
   
   return times;
 }
+
+//find outlier from even and odd numbers in array
+function findOutlier(integers){
+  let oddCount = 0;
+  let evenCount = 0;
+  let evenNumbers = [];
+  let oddNumbers = [];
+  
+  for (i = 0; i <= integers.length - 1; i++) {
+    if (integers[i] % 2 === 0) {
+      evenCount++;
+      evenNumbers.push(integers[i]);
+    } else {
+      oddCount++;
+      oddNumbers.push(integers[i]);
+    }
+  }
+  
+  if (evenCount > oddCount) {
+    return oddNumbers[0];
+  } else {
+    return evenNumbers[0];
+  }
+}
