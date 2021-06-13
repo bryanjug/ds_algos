@@ -576,3 +576,100 @@ function findOutlier(integers){
     return evenNumbers[0];
   }
 }
+
+//seven(times(five())); // must return 35
+function zero(operator) {
+  return operator ? operator(0) : 0;
+}
+
+function one(operator) {
+  return operator ? operator(1) : 1;
+}
+
+function two(operator) {
+  return operator ? operator(2) : 2;
+}
+
+function three(operator) {
+  return operator ? operator(3) : 3;
+}
+
+function four(operator) {
+  return operator ? operator(4) : 4;
+}
+
+function five(operator) {
+  return operator ? operator(5) : 5;
+}
+
+function six(operator) {
+  return operator ? operator(6) : 6;
+}
+
+function seven(operator) {
+  return operator ? operator(7) : 7;
+}
+function eight(operator) {
+  return operator ? operator(8) : 8;
+}
+
+function nine(operator) {
+  return operator ? operator(9) : 9;
+}
+
+function plus(rightVal) {
+  return function(leftVal) {
+    return leftVal + rightVal;
+  }
+}
+
+function minus(rightVal) {
+  return function(leftVal) {
+    return leftVal - rightVal;
+  }
+}
+
+function times(rightVal) {
+  return function(leftVal) {
+    return leftVal * rightVal;
+  }
+}
+
+function dividedBy(rightVal) {
+  return function(leftVal) {
+    return leftVal / rightVal;
+  }
+}
+
+//plan = ["NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH", "WEST"] = ["WEST"]
+//plan = ["NORTH","SOUTH","SOUTH","EAST","WEST","NORTH"] = []
+//plan = ["NORTH", "WEST", "SOUTH", "EAST"] = ["NORTH", "WEST", "SOUTH", "EAST"]
+function dirReduc(plan) {
+  var opposite = {
+    'NORTH': 'SOUTH', 
+    'EAST': 'WEST', 
+    'SOUTH': 'NORTH', 
+    'WEST': 'EAST'
+  };
+
+  return plan.reduce(function(dirs, dir){ //dirs = new array, dir = item in array
+      //if i - 1 in array equals the opposite of dir
+      if (dirs[dirs.length - 1] === opposite[dir])
+        //remove last item in array
+        dirs.pop();
+      else
+        //add dir to end of array
+        dirs.push(dir);
+      //return array after each item is looped
+      return dirs;
+  }, []);
+}
+
+//find magnitude / length of a 2D, 3D, 4D... square
+const magnitude = v => Math.sqrt(v.reduce((a,x) => a + x * x, 0))
+
+//same as above
+function magnitude(vector) {
+  return Math.hypot(...vector);
+}
+
