@@ -708,3 +708,105 @@ function songDecoder(song){
   return song.replace(/(WUB)+/g," ").trim() //trim to remove spaces at end /start of string
 }
 
+//find number of 1's in a number when converted to binary
+countBits = n => n.toString(2).split('0').join('').length;
+
+//check if path will take 10 minutes (each path change = 1 minute) and changes back to original position
+function isValidWalk(walk) {
+  let position = [0, 0]; //[x, y]
+  //must be 10 minutes
+  if (walk.length === 10) {
+    //find positions moved
+    for (i = 0; i <= walk.length; i++) {
+      if (walk[i] === "n") {
+        position[1] = position[1] + 1;
+      }
+      if (walk[i] === "s") {
+        position[1] = position[1] - 1;
+      }
+      if (walk[i] === "w") {
+        position[0] = position[0] - 1;
+      }
+      if (walk[i] === "e") {
+        position[0] = position[0] + 1;
+      }
+    }
+    //must return to original position
+    if (position[0] === 0 && position[1] === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
+}
+
+//same as above but with switch
+function isValidWalk(walk) {
+  var dx = 0
+  var dy = 0
+  var dt = walk.length
+  
+  for (var i = 0; i < walk.length; i++) {
+    switch (walk[i]) {
+      case 'n': dy--; break
+      case 's': dy++; break
+      case 'w': dx--; break
+      case 'e': dx++; break
+    }
+  }
+  
+  return dt === 10 && dx === 0 && dy === 0
+}
+
+//find index in the alphabet of each letter in text
+function alphabetPosition(text) {
+  text = text.toLowerCase();
+  text = text.replace((/[^A-Za-z]/g), "");
+  let alphabet = "abcdefghijklmnopqrstuvwxyz";
+  let positions = [];
+  for (i = 0; i < text.length; i++) {
+    positions.push(alphabet.match(text[i]).index + 1)
+  }
+  return positions.join(" ")
+}
+
+//same as above but with charCodeAt to find value of char in alphabet and map
+function alphabetPosition(text) {
+  return text
+    .toUpperCase()
+    .match(/[a-z]/gi)
+    .map( (c) => c.charCodeAt() - 64)
+    .join(' ');
+}
+
+//check if order of parenthesis are valid
+// "()"              =>  true
+// ")(()))"          =>  false
+// "("               =>  false
+// "(())((()())())"  =>  true
+function validParentheses(parens) {
+  let valid = 0;
+  for (i = 0; i < parens.length; i++) {
+    if (parens[0] === ")") {
+      return false;
+    }
+    if (parens[parens.length - 1] === "(") {
+      return false;
+    }
+    if (valid === -1) {
+      return false;
+    }
+    if (parens[0] === "(") {
+      if (parens[i] === "(") {
+        valid = valid + 1;
+      }
+      if (parens[i] === ")") {
+        valid = valid - 1;
+      }
+    }
+  }
+  if (valid === 0) return true
+  if (valid !== 0) return false
+}
