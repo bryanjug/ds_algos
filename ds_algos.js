@@ -673,3 +673,38 @@ function magnitude(vector) {
   return Math.hypot(...vector);
 }
 
+//replace char with ( if char is unique, otherwise replace with )
+function duplicateEncode(word){
+   
+  var unique='';
+  word = word.toLowerCase();
+  for(var i=0; i<word.length; i++){
+      if(word.lastIndexOf(word[i]) == word.indexOf(word[i])){
+          unique += '(';
+      }
+      else{
+          unique += ')';
+      }
+  }
+  return unique;
+
+}
+
+//same as above but with map
+function duplicateEncode(word){
+  return word
+    .toLowerCase()
+    .split('')
+    .map( function (a, i, w) {
+      return w.indexOf(a) == w.lastIndexOf(a) ? '(' : ')'
+    })
+    .join('');
+}
+
+//replace WUB with words separated by spaces
+//songDecoder("WUBWEWUBAREWUBWUBTHEWUBCHAMPIONSWUBMYWUBFRIENDWUB")
+// =>  WE ARE THE CHAMPIONS MY FRIEND
+function songDecoder(song){
+  return song.replace(/(WUB)+/g," ").trim() //trim to remove spaces at end /start of string
+}
+
