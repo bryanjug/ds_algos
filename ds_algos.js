@@ -810,3 +810,101 @@ function validParentheses(parens) {
   if (valid === 0) return true
   if (valid !== 0) return false
 }
+
+//find sum of contiguous sequence
+//maxSequence([-2, 1, -3, 4, -1, 2, 1, -5, 4])
+// should be 6: [4, -1, 2, 1]
+var maxSequence = function(arr){
+  var min = 0, ans = 0, i, sum = 0;
+  for (i = 0; i < arr.length; ++i) {
+    sum += arr[i];
+    min = Math.min(sum, min);
+    ans = Math.max(ans, sum - min);
+  }
+  return ans;
+}
+//Move the first letter of each word to the end of it, then add "ay" to the end of the word. Leave punctuation marks untouched.
+//pigIt('Hello world !'); -> elloHay orldway !
+function pigIt(str){
+  let array = str.split(" ")
+  let newString = "";
+  for (i = 0; i < array.length; i++) {
+    for (j = 0; j < array[i].length; j++) {
+      if (j !== 0) {
+        newString += array[i][j]; 
+      }
+      let specialCharCheck = /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(array[i][j])
+      if (i === array.length - 1 && specialCharCheck !== true) {
+        if (j === array[i].length - 1) {
+          newString += array[i][0] + "ay";
+        }
+      } else if (i === array.length - 1 && specialCharCheck === true) {
+        newString += array[i][j];
+      } else if (j === array[i].length - 1 && specialCharCheck !== true) {
+        newString += array[i][0] + "ay ";
+      } else if (j === array[i].length - 1 && specialCharCheck === true) {
+        newString += array[i][j];
+      }
+    }
+  }
+  return newString;
+}
+
+//same as above but with .replace()
+function pigIt(str) {
+  return str.replace(/\w+/g, (w) => {
+    return w.slice(1) + w[0] + 'ay';
+  });
+}
+
+//takes an array and moves all of the zeros to the end, preserving the order of the other elements.
+//moveZeros([false,1,0,1,2,0,1,3,"a"]) // returns[false,1,1,2,1,3,"a",0,0]
+var moveZeros = function (arr) {
+  let newArray = [];
+  let zerosArray = [];
+  for (i = 0; i < arr.length; i++) {
+    if (arr[i] !== 0) {
+      newArray.push(arr[i])
+    }
+    if (arr[i] === 0) {
+      zerosArray.push(arr[i])
+    }
+  }
+  let ans = [].concat(newArray, zerosArray)
+  return ans;
+}
+
+//same as above but with filter
+var moveZeros = function (arr) {
+  return arr.filter(function(x) {return x !== 0}).concat(arr.filter(function(x) {return x === 0;}));
+}
+
+//(seconds) as input and returns the time in a human-readable format (HH:MM:SS)
+//'99:59:59' = 'humanReadable(359999)'
+function humanReadable(seconds) {
+  let newSeconds = seconds % 60;
+  let minutes = seconds / 60;
+  let newMinutes = minutes % 60;
+  let hours = minutes / 60;
+  let secs = "";
+  let mins = "";
+  let hrs = "";
+  
+  if (newSeconds < 10) {
+    secs += "0" + Math.trunc(newSeconds);
+  } else if (newSeconds >= 10) {
+    secs += Math.trunc(newSeconds);
+  }
+  if (newMinutes < 10) {
+    mins += "0" + Math.trunc(newMinutes);
+  } else if (newMinutes >= 10) {
+    mins += Math.trunc(newMinutes);
+  }
+  if (hours < 10) {
+    hrs += "0" + Math.trunc(hours);
+  } else if (hours >= 10) {
+    hrs += Math.trunc(hours)
+  }
+  return hrs + ":" + mins + ":" + secs;
+}
+
