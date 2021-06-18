@@ -908,3 +908,108 @@ function humanReadable(seconds) {
   return hrs + ":" + mins + ":" + secs;
 }
 
+//find sum of 2 numbers that equal to 10 with O(n)
+// sum_pairs([11, 3, 7, 5],         10)
+// #              ^--^      3 + 7 = 10
+function sumPairs(ints, s){
+  var seen = {}
+  for (var i = 0; i < ints.length; ++i) {
+    //if s - current int is found in seen and is equal to true
+    //check to see if 3 is inside of seen by substracting 10 from 7
+    if (seen[s - ints[i]]) {
+      //return [10 - 7, 7]
+       return [s - ints[i], ints[i]];
+    } 
+    //add int[i]: true to object seen on each int
+    //on each ints
+    seen[ints[i]] = true
+  }
+}
+
+//order each number by the sum of each individual number together
+//if the number equals the same as the next, order by 1 - 9 
+//("2000 10003 1234000 44444444 9999 11 11 22 123"), "11 11 2000 10003 22 123 1234000 44444444 9999")
+function orderWeight(strng) {
+  const sum = (str) => { //splits "2000" and adds 2 0 0 0 together
+    str.split('').reduce((sum,el)=>(sum+(+el)),0);
+  }
+
+  function comp(a,b) {
+    //runs sum function on a and b
+     let sumA = sum(a); //a = 2000
+     let sumB = sum(b); //b === 10003
+     //checks if the sum of 2000 and sum of 10003 equal to each other
+     //if true, localCompare a and b to see which comes first
+     //otherwise sort the biggest number first
+     return sumA === sumB ? a.localeCompare(b) : sumA - sumB;
+  };
+  //comp function tells which numbers to sort in the string variable
+  //using .sort(function (a, b) {})
+  return strng.split(' ').sort(comp).join(' '); //sorts using the comp function
+ }
+
+ //convert rgb to hex
+ //rgb(148, 0, 211) // returns 9400D3
+ function rgb(r, g, b){
+  let string = "";
+  let rString = "";
+  let gString = "";
+  let bString = "";
+  if (r.toString(16) <= '0') {
+    rString += "00"
+  } else if (r > 255) {
+    rString += (255).toString(16);
+  } else if (r.toString(16).length === 1) {
+    rString += "0" + r.toString(16);
+  } else {
+    rString += r.toString(16);
+  }
+  
+  if (g.toString(16) <= '0') {
+    gString += "00"
+  } else if (g > 255) {
+    gString += (255).toString(16);
+  } else if (g.toString(16).length === 1) {
+    gString += "0" + g.toString(16);
+  } else {
+    gString += g.toString(16);
+  }
+  
+  if (b.toString(16) <= '0') {
+    bString += "00"
+  } else if (b > 255) {
+    bString += (255).toString(16);
+  } else if (b.toString(16).length === 1) {
+    bString += "0" + b.toString(16);
+  } else {
+    bString += b.toString(16);
+  }
+  string = rString + gString + bString;
+  return string.toUpperCase();
+}
+
+//check if you can make the word given with the characters in a scrambled word
+const scramble = (str1, str2) => {
+  for (let i = 0; i < str2.length; i++) {
+      //make regex searching for 1 single char in 'world'
+      const char = new RegExp(str2[i], 'g');
+      if (
+          //if 'rkqodlw' does not contain the single char or
+          !str1.match(char) ||
+          //if the length of 'rkqodlw' matching with the char is not bigger or equal to 
+          //the length of 'world' matching with the char
+          !(str1.match(char).length >= str2.match(char).length)
+      ) {
+          return false;
+      }
+  }
+  return true;
+};
+
+//replaces a letter with the letter 13 letters after it in the alphabet, ignore special characters
+function rot13(message) {
+  var a = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  var b = "nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM"
+  return message.replace(/[a-z]/gi, c => b[a.indexOf(c)])
+}
+
