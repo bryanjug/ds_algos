@@ -1013,3 +1013,84 @@ function rot13(message) {
   return message.replace(/[a-z]/gi, c => b[a.indexOf(c)])
 }
 
+//t (maximum sum of distances, integer >= 0), k (number of towns to visit, k >= 1) and ls 
+//(list of distances, all distances are positive or zero integers and this list has at least one element). 
+//The function returns the "best" sum ie the biggest possible sum of k distances less than or equal to the given limit t, 
+//if that sum exists, or otherwise nil, null, None
+//Test.assertEquals(chooseBestSum(163, 3, [50, 55, 56, 57, 58])) = 163
+function chooseBestSum(t, k, ls) {
+  var biggestCount = 0;
+  var recurseTowns = function(townsSoFar, lastIndex) {
+    townsSoFar = townsSoFar || [];
+    //base case
+    if (townsSoFar.length === k) {
+      var sumDistance = townsSoFar.reduce((a,b)=>a+b);
+      
+      if (sumDistance <= t && sumDistance > biggestCount) {
+        biggestCount = sumDistance;
+      }
+      //stops for loop once townsSoFar.length = 3 (k)
+      //save biggest count then lastIndex += 1
+      //cancels .concat, then i + 1 in order to add next value to townsSoFar
+      return; //EJECT
+    }
+    //recursive case
+    //loop through ls.length and add to index
+    //recursive for loop = nested for loop
+    //one i = 5 recurseTowns runs
+    //townsSoFar = [] once i <= 4
+    //i at 0 = 0, then at i at 1 = 2 = [50, 55, 56] -> [50, 55, 57] -> [50, 55, 58]
+    //at [50, 57, ], lastIndex is not reset because townsSoFar !== 3 -> no return present
+    //lastindex = undefined + 1 === [55, 56, 57]...
+    for (var i = lastIndex + 1 || 0; i < ls.length; i++) {
+      recurseTowns(townsSoFar.concat(ls[i]), i);
+    }
+  }
+  recurseTowns();
+  
+  return biggestCount || null;
+}
+
+//anagrams('abba', ['aabb', 'abcd', 'bbaa', 'dada']) => ['aabb', 'bbaa']
+//return an array of all the anagrams or an empty array if there are none.
+//two words are anagrams of each other if they both contain the same letters
+function anagrams(word, words) {
+  word = word.split("").sort().join("");
+  let wordsSorted = [];
+  let matching = [];
+  
+  for (i = 0; i < words.length; i++) {
+    wordsSorted.push(words[i].split("").sort().join(""))
+  }
+  
+  for (i = 0; i < wordsSorted.length; i++) {
+    if (wordsSorted[i].includes(word) && wordsSorted[i].length === word.length) {
+      matching.push(words[i])
+    }
+  }
+  
+  return matching
+}
+
+//same as above but with filter
+function anagrams(word, words) {
+  word = word.split('').sort().join('');
+  return words.filter(function(v) {return word == v.split('').sort().join('');});
+}
+
+function snail(array) {
+  var result;
+  while (array.length) {
+    // Steal the first row.
+    result = (result ? result.concat(array.shift()) : array.shift());
+    // Steal the right items.
+    for (var i = 0; i < array.length; i++)
+      result.push(array[i].pop());
+    // Steal the bottom row.
+    result = result.concat((array.pop() || []).reverse());
+    // Steal the left items.
+    for (var i = array.length - 1; i >= 0; i--)
+      result.push(array[i].shift());
+  }
+  return result;
+}
