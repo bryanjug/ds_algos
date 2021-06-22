@@ -1078,19 +1078,72 @@ function anagrams(word, words) {
   return words.filter(function(v) {return word == v.split('').sort().join('');});
 }
 
+//Given an n x n array, return the array elements arranged from outermost elements to the middle element, traveling clockwise.
+//array = [[1,2,3],
+// [8,9,4],
+// [7,6,5]]
+// snail(array) #=> [1,2,3,4,5,6,7,8,9]
+//image for better understanding http://www.haan.lu/files/2513/8347/2456/snail.png
 function snail(array) {
   var result;
+  //runs until all elements of array are removed
   while (array.length) {
-    // Steal the first row.
+    // Steal the first row. 
+    //removes top row and adds to result
     result = (result ? result.concat(array.shift()) : array.shift());
-    // Steal the right items.
+    // Steal the right items. 
+    //removes every last element from each row after the first (since it got removed) and adds to result
     for (var i = 0; i < array.length; i++)
       result.push(array[i].pop());
     // Steal the bottom row.
+    //flip the bottom (last) row, remove the row, and add to result
     result = result.concat((array.pop() || []).reverse());
     // Steal the left items.
+    //removes every first element of the rows and adds them to result
     for (var i = array.length - 1; i >= 0; i--)
       result.push(array[i].shift());
   }
   return result;
+}
+
+//takes a positive integer and returns the next bigger number that can be formed by rearranging its digits
+//nextBigger(num: 2017) // returns 2071
+function nextBigger(n){
+// 123476543
+// Find the position where a swap will actually increase the number (starting from the last digit)
+// 1234|76543 (swapping 4(pivot) and 7 will definitely result in a bigger number)
+
+// sort the suffix (the next bigger number has ascending digits in its suffix)
+// 1234|34567
+
+// find the first digit in the suffix that is bigger than our pivot: -> 5. swap with pivot
+// 1235|34467
+  var chars = n.toString().split('');
+  var i = chars.length-1;
+  //looping from back to front
+  while(i > 0) {
+    if (chars[i]>chars[i-1]) break;
+    i--;
+  }
+  //checks if all numbers are the same
+  if (i == 0) return -1;
+  //sorts the start of i (the number bigger than the next) and the rest of the numbers
+  //removes the num thats bigger than the next and nums behind from char
+  var suf = chars.splice(i).sort();
+  //grabs last number in chars
+  var t = chars[chars.length-1];
+  //loop through the numbers behind the larger number
+  for (i = 0; i < suf.length; ++i) {
+    // 1234|34567
+    //if (5 (suf[i]) is bigger than 4 (t) -> break)
+    if (suf[i] > t) break;
+  }
+  //4 (char[chars.length - 1]) = 5 (suf(i))
+  chars[chars.length-1] = suf[i]
+  //5 (suf[i]) = 4 (t)
+  suf[i] = t;
+  var res = chars.concat(suf);
+  var num = parseInt(res.join(''));
+  console.log("->" +num);
+  return num;
 }
