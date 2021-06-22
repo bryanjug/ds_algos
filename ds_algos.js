@@ -1147,3 +1147,83 @@ function nextBigger(n){
   console.log("->" +num);
   return num;
 }
+
+function formatDuration (seconds) {
+  let minutes = seconds / 60;
+  let hours = minutes / 60;
+  let days = hours / 24;
+  let years = days / 365;
+  let yearsString = "";
+  let daysString = "";
+  let hoursString = "";
+  let minutesString = "";
+  let secondsString = "";
+  let stringsArray = [];
+  let message = "";
+  //format times / dates
+  if (seconds === 0) { return "now" }
+  if (seconds >= 60) { seconds = seconds % 60 }
+  if (minutes >= 60) { minutes = minutes % 60 }
+  if (hours >= 24) { hours = hours % 24 }
+  if (days >= 365) { days = days % 365 }
+  let array = [Math.trunc(years), Math.trunc(days), Math.trunc(hours), Math.trunc(minutes), Math.trunc(seconds)];
+  //set up format strings
+  if (array[0] === 1) {
+    yearsString += array[0] + " year"
+    stringsArray.push(yearsString);
+  } else if (array[0] > 1) {
+    yearsString += array[0] + " years"
+    stringsArray.push(yearsString);
+  }
+  if (array[1] === 1) {
+    daysString += array[1] + " day"
+    stringsArray.push(daysString);
+  } else if (array[1] > 1) {
+    daysString += array[1] + " days"
+    stringsArray.push(daysString);
+  }
+  if (array[2] === 1) {
+    hoursString += array[2] + " hour"
+    stringsArray.push(hoursString);
+  } else if (array[2] > 1) {
+    hoursString += array[2] + " hours"
+    stringsArray.push(hoursString);
+  }
+  if (array[3] === 1) {
+    minutesString += array[3] + " minute"
+    stringsArray.push(minutesString);
+  } else if (array[3] > 1) {
+    minutesString += array[3] + " minutes"
+    stringsArray.push(minutesString);
+  }
+  if (array[4] === 1) {
+    secondsString += array[4] + " second"
+    stringsArray.push(secondsString);
+  } else if (array[4] > 1) {
+    secondsString += array[4] + " seconds"
+    stringsArray.push(secondsString);
+  }
+  //include ands and commas
+  for (i = 0; i < stringsArray.length; i++) {
+    if (stringsArray.length === 1) {
+      return yearsString + daysString + hoursString + minutesString + secondsString
+    }
+    if (stringsArray.length === 2) {
+      if (i === 0) {
+        message += stringsArray[i] + " and ";
+      } else {
+        message += stringsArray[i];
+      }
+    }
+    if (stringsArray.length > 2) {
+      if (i === stringsArray.length - 2) {
+        message += stringsArray[i] + " and ";
+      } else if (i === stringsArray.length - 1) {
+        message += stringsArray[i];
+      } else if (i < stringsArray.length) {
+        message += stringsArray[i] + ", ";
+      }
+    }
+  }
+  return message;
+}
