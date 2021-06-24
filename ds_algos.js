@@ -1228,18 +1228,24 @@ function formatDuration (seconds) {
   return message;
 }
 
+//sudoku puzzle = return true if each 3x3 square in a 9x9 square has the numbers 1-9
+//if the 3x3 square has a 0 or has
 function validSolution(board){
   //function takes s (set) and returns true if s.size = 9 and doesnt have a 0
   var validSet = s => s.size == 9 && !s.has(0);
   //function takes i (loop iterator) and adds each row into a set (s)
+  //Set() removes all duplicates
+  //new Set() is the initial value
   var rowSet = i => board[i].reduce((s,v) => s.add(v), new Set());
   //function takes i (loop iterator) and adds each column into a set (s)
   var columnSet = i => board.reduce((s,v) => s.add(v[i]), new Set());
   //chops up the array by 3x3 blocks into a new Set, which is then checked for validity
   //takes in r (row) and c (column) and removed the elements after the 3rd element in the row
-  //
+  //for each row, add the first 3 elements, make a new set and add to the set until
+  //theres no more rows left (r row in total)
   var boxSet = ([r,c]) => board.slice(r,r+3).reduce((s,v) => v.slice(c,c+3).reduce((s,v) => s.add(v), s), new Set());
-  //finds a starting position
+  //finds a starting position -> [0, 0], [0, 3], [0,6], [3,0]... [6,6]
+  //i % 3 = 0, 1, 2, 0...
   var boxCorner = i => [Math.floor(i / 3) * 3,(i % 3) * 3];
   for (var i = 0; i < 9; i++)
     if ( !validSet(rowSet(i)) || !validSet(columnSet(i)) || !validSet(boxSet(boxCorner(i))) )
