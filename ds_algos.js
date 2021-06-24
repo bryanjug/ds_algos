@@ -1227,3 +1227,22 @@ function formatDuration (seconds) {
   }
   return message;
 }
+
+function validSolution(board){
+  //function takes s (set) and returns true if s.size = 9 and doesnt have a 0
+  var validSet = s => s.size == 9 && !s.has(0);
+  //function takes i (loop iterator) and adds each row into a set (s)
+  var rowSet = i => board[i].reduce((s,v) => s.add(v), new Set());
+  //function takes i (loop iterator) and adds each column into a set (s)
+  var columnSet = i => board.reduce((s,v) => s.add(v[i]), new Set());
+  //chops up the array by 3x3 blocks into a new Set, which is then checked for validity
+  //takes in r (row) and c (column) and removed the elements after the 3rd element in the row
+  //
+  var boxSet = ([r,c]) => board.slice(r,r+3).reduce((s,v) => v.slice(c,c+3).reduce((s,v) => s.add(v), s), new Set());
+  //finds a starting position
+  var boxCorner = i => [Math.floor(i / 3) * 3,(i % 3) * 3];
+  for (var i = 0; i < 9; i++)
+    if ( !validSet(rowSet(i)) || !validSet(columnSet(i)) || !validSet(boxSet(boxCorner(i))) )
+      return false;
+  return true;
+}
