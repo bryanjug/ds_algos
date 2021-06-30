@@ -1396,8 +1396,10 @@ pointsCalculator(month1, month2, month3);
 // "11": ["11", "22", "44", "12", "21", "14", "41", "24", "42"],
 // instead of the 1 it could also be the 2 or 4. And instead of the 5 it could also be the 2, 4, 6 or 8.
 function getPINs(observed) {
-  return observed.split('')
-  .map( t => ({
+  let test = "369";
+  test.split('') //seperate into array
+  //map through each element and return with array
+  .map( t => ({ //[ '2', '3', '6' ], [ '3', '5', '6', '9' ], [ '6', '8', '9' ]
     '0': [ '0', '8' ],
     '1': [ '1', '2', '4' ],
     '2': [ '1', '2', '3', '5' ],
@@ -1409,11 +1411,15 @@ function getPINs(observed) {
     '8': [ '5', '7', '8', '9', '0' ],
     '9': [ '6', '8', '9' ]
   }[t]))
-  .reduce((pre, cur)=> 
-    [].concat.apply(
-      [], pre.map(
-        t => cur.map(g => t + g)
+  .reduce((previous, current)=> //for each array in array, pre=['2','3','6'], cur=['3','5','6','9']
+    [].concat.apply( //adds to an array
+      [], previous.map( //map for each element in ['2','3','6'], if no element provided, return []
+        t => current.map( //map for each element in ['3','5','6','9'], t = previous.map element
+          //g = current.map element
+          //add the previous.map and current.map elements and concat to array
+          g => t + g
+        ) 
       )
     )
-  );
+  )
 }
