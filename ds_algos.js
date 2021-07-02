@@ -1436,3 +1436,17 @@ const sequenceSum = (begin, end, step) => {
   }
   return begin + sequenceSum(begin + step, end, step);
 };
+
+//How would you reverse words in a sentence using Javascript?
+let words = "hello there my friend";
+
+function reverseWords() {
+    words = words.split(" ");
+    let array = [];
+    for (i = words.length - 1; i >= 0; i--) {
+        array.push(words[i])
+    }
+    return array.join(" ");
+}
+
+reverseWords(words);
