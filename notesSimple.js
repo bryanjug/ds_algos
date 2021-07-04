@@ -83,11 +83,29 @@
 //same([1,2,3], [4,1,9]) = true
 //same([1,2,1], [1,9]) = false
 //same([1,2,1], [4,4,1]) = false
-let array1 = [1, 2, 1];
-let array2 = [4, 4, 1];
+let array1 = [1,2,1];
+let array2 = [1,9];
 
 function same(array1, array2) {
-    
+    let count = 0;
+
+    if (array1.length !== array2.length) console.log(false);
+
+    for (i = 0; i < array1.length; i++) {
+        let comparison = array2.find(element => element === array1[i] * array1[i])
+
+        if (comparison) {
+            count += 1;
+            array2.splice(array2.indexOf(comparison), 1)
+        }
+        
+    }
+
+    if (count === array1.length) {
+        console.log(true);
+    } else {
+        console.log(false);
+    }
 }
 
 same(array1, array2);
