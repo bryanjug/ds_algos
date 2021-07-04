@@ -70,3 +70,24 @@
 //can you think of other ways to refactor?
 //how have others solved the problem?
 
+//MASTER PROBLEM SOLVING PATTERNS
+//frequency pattern
+//multiple pointers
+//sliding window
+//divide and conquer
+//dynamic programming
+//greedy algorithms
+//backtracking
+
+//find if second object contains squared values in first object
+//same([1,2,3], [4,1,9]) = true
+//same([1,2,1], [1,9]) = false
+//same([1,2,1], [4,4,1]) = false
+let array1 = [1, 2, 1];
+let array2 = [4, 4, 1];
+
+function same(array1, array2) {
+    
+}
+
+same(array1, array2);
