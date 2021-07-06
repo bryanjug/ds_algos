@@ -161,7 +161,7 @@ let anagram1 = "anagram";
 let anagram2 = "nagaram";
 
 function validAnagram(anagram1, anagram2) {
-    if (anagram1.length !== anagram2.length) console.log("false");
+    if (anagram1.length !== anagram2.length) return false;
     let counts1 = {};
     let counts2 = {};
     for (i = 0; i < anagram1.length; i++) {
@@ -180,10 +180,10 @@ function validAnagram(anagram1, anagram2) {
     }
     for (i = 0; i < Object.keys(counts1).length; i++) {
         if (!(Object.keys(counts1)[i] in counts2)) {
-            console.log("false")
+            return false;
         }
         if (counts1[anagram1[i]] !== counts2[anagram1[i]]) {
-            console.log("false");
+            return false;
         }
     }
     return true;
