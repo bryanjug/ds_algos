@@ -86,6 +86,8 @@
 let array1 = [1,2,1];
 let array2 = [1,9];
 
+//O(n^2)
+//indexOf, find = for loop
 function same(array1, array2) {
     let count = 0;
 
@@ -98,9 +100,7 @@ function same(array1, array2) {
             count += 1;
             array2.splice(array2.indexOf(comparison), 1)
         }
-        
     }
-
     if (count === array1.length) {
         console.log(true);
     } else {
@@ -109,3 +109,85 @@ function same(array1, array2) {
 }
 
 same(array1, array2);
+
+//refactored, O(n^2)
+//indexOf = for loop
+function same(arr1, arr2){
+    if(arr1.length !== arr2.length){
+        return false;
+    }
+    for(let i = 0; i < arr1.length; i++){
+        let correctIndex = arr2.indexOf(arr1[i] ** 2)
+        if(correctIndex === -1) {
+            return false;
+        }
+        console.log(arr2);
+        arr2.splice(correctIndex,1)
+    }
+    return true;
+}
+
+same([1,2,3,2], [9,1,4,4])
+
+//refactored, O(n)
+function same(arr1, arr2){
+    if(arr1.length !== arr2.length){
+        return false;
+    }
+    let frequencyCounter1 = {}
+    let frequencyCounter2 = {}
+    for(let val of arr1){
+        frequencyCounter1[val] = (frequencyCounter1[val] || 0) + 1
+    }
+    for(let val of arr2){
+        frequencyCounter2[val] = (frequencyCounter2[val] || 0) + 1        
+    }
+    for(let key in frequencyCounter1){
+        if(!(key ** 2 in frequencyCounter2)){
+            return false
+        }
+        if(frequencyCounter2[key ** 2] !== frequencyCounter1[key]){
+            return false
+        }
+    }
+    return true
+}
+
+same([1,2,3,2,5], [9,1,4,4,11])
+
+//check if second string is an anagram of the first string
+//O(n)
+let anagram1 = "anagram";
+let anagram2 = "nagaram";
+
+function validAnagram(anagram1, anagram2) {
+    if (anagram1.length !== anagram2.length) console.log("false");
+    let counts1 = {};
+    let counts2 = {};
+    for (i = 0; i < anagram1.length; i++) {
+        if (!counts1[anagram1[i]]) {
+            counts1[anagram1[i]] = 1;
+        } else {
+            counts1[anagram1[i]] = ++counts1[anagram1[i]]
+        }
+    }
+    for (i = 0; i < anagram2.length; i++) {
+        if (!counts2[anagram2[i]]) {
+            counts2[anagram2[i]] = 1;
+        } else {
+            counts2[anagram2[i]] = ++counts2[anagram2[i]]
+        }
+    }
+    for (i = 0; i < Object.keys(counts1).length; i++) {
+        if (!(Object.keys(counts1)[i] in counts2)) {
+            console.log("false")
+        }
+        if (counts1[anagram1[i]] !== counts2[anagram1[i]]) {
+            console.log("false");
+        }
+    }
+    return true;
+}
+
+validAnagram(anagram1, anagram2);
+
