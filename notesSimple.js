@@ -191,3 +191,54 @@ function validAnagram(anagram1, anagram2) {
 
 validAnagram(anagram1, anagram2);
 
+//function accepting a sorted array of ints that finds the first pair where the sum = 0.
+//return an array with both values that sum to zero, else undefined
+//O(n^2)
+function sumZero(arr){
+    for(let i = 0; i < arr.length; i++){
+        for(let j = i+1; j < arr.length; j++){
+            if(arr[i] + arr[j] === 0){
+                return [arr[i], arr[j]];
+            }
+        }
+    }
+}
+
+sumZero([-4,-3,-2,-1,0,1,2,5])
+
+//multiple pointers, moves from far left and far right to the middle
+//O(n)
+function sumZero(arr){
+    let left = 0;
+    let right = arr.length - 1;
+    while(left < right) {
+        let sum = arr[left] + arr[right];
+        if (sum === 0) {
+            return [arr[left], arr[right]];
+        } else if (sum > 0) {
+            right--;
+        } else {
+            left++;
+        }
+    }
+}
+
+sumZero([-4,-3,-2,-1,0,1,2,5])
+
+//counts the unique values in a sorted array
+//non altered array
+//O(n)
+function countUniqueValues(arr) {
+    let count = 0;
+    for (i = 0; i < arr.length; i++) {
+        if (arr[i] !== arr[i + 1]) {
+            count += 1;
+        }
+    }
+    return count;
+}
+
+countUniqueValues([1,2,3,4,4,4,7,7,12,12,13])
+
+//refactor
+//alter array
