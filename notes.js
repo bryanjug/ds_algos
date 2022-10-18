@@ -190,7 +190,7 @@ function same(arr1, arr2){
 }
 
 same([1,2,3,2], [9,1,4,4])
-
+ 
 //FAST
 function same(arr1, arr2){
     if(arr1.length !== arr2.length){
@@ -276,11 +276,49 @@ function validAnagram(first, second) {
     }
   
     return true;
-  }
+}
   
-  // {a: 0, n: 0, g: 0, r: 0, m: 0,s:1}
-  validAnagram('anagrams', 'nagaramm')
+// {a: 0, n: 0, g: 0, r: 0, m: 0,s:1}
+validAnagram('anagrams', 'nagaramm')
 
+//function accepting a sorted array of ints that finds the first pair where the sum = 0.
+//return an array with both values that sum to zero, else undefined
+//O(n^2) time complexity
+//O(1) space complexity
+function sumZero(arr){
+    for(let i = 0; i < arr.length; i++){
+        for(let j = i+1; j < arr.length; j++){
+            if(arr[i] + arr[j] === 0){
+                return [arr[i], arr[j]];
+            }
+        }
+    }
+}
+
+sumZero([-4,-3,-2,-1,0,1,2,5])
+
+//multiple pointers, moves from far left and far right to the middle
+//O(n) time complexity
+// O(1) space
+function sumZero(arr){
+    let left = 0;
+    let right = arr.length - 1;
+    while(left < right) {
+        let sum = arr[left] + arr[right];
+        if (sum === 0) {
+            return [arr[left], arr[right]];
+        } else if (sum > 0) {
+            right--;
+        } else {
+            left++;
+        }
+    }
+}
+
+sumZero([-4,-3,-2,-1,0,1,2,5])
+
+//accepts sorted array and counts the unique values in the array. there can be negative nums. it will always be sorted.
+//O(n) time
 function countUniqueValues(arr){
     if(arr.length === 0) return 0;
     
@@ -316,7 +354,7 @@ function maxSubarraySum(arr, num) {
   
 maxSubarraySum([2,6,9,2,1,8,5,6,3],3)
   
-//O(N)
+//O(N) time
 function maxSubarraySum(arr, num){
     let maxSum = 0;
     let tempSum = 0;
@@ -394,26 +432,39 @@ function areThereDuplicates() {
     return false;
 }
 
-//areThereDuplicates Solution (Multiple Pointers) 
-//doesnt work??
+//multiple pointers
+// Time - O(n)
+// Space - O(n)
+// doesn't work???
 function areThereDuplicates(...args) {
     // Two pointers
     args.sort((a,b) => a > b);
-    
     let start = 0;
     let next = 1;
-
     while(next < args.length){
       if(args[start] === args[next]){
-          return true
+            console.log(true)
+          //return true
       }
-      
       start++
       next++
     }
-    return false
+    console.log(false)
+    // return false
 }
+areThereDuplicates('a', 'b', 'c', 'a') // true
 
+//areThereDuplicates One Liner Solution
+function areThereDuplicates() {
+    return new Set(arguments).size !== arguments.length;
+}
+areThereDuplicates('a', 'b', 'c', 'a')
+
+//Given a sorted array of integers and a target average, 
+//determine if there is a pair of values in the array 
+//where the average of the pair equals the target average.
+//There may be more than one pair that matches the average
+//target.
 //time: o(n)
 //space: o(1)
 function averagePair(arr,avg){
@@ -423,7 +474,7 @@ function averagePair(arr,avg){
         return false;
     }
     
-     //create 2 ppointers
+     //create 2 pointers
     let left = 0;
     let right = arr.length-1;
 
@@ -446,4 +497,3 @@ function averagePair(arr,avg){
     console.log(false);
     return false;
 }
-

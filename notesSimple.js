@@ -10,7 +10,7 @@
 //for loop on each number => n additions, n assignments
 //5n + 2 = n
 //linear = n, quadratic = n^2, constant = 1
-//always 3 opperations = O(1)
+//always 3 operations = O(1)
 //multiple of n operations = O(n)
 //nested loop = O(n^2)
 //variable assignment, math, accessing element in array (index) or object (key) = O(1)
